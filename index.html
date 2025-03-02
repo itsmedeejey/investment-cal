@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>intrest-cal</title>
+</head>
+<body>
+    <style>
+        body{
+            background-color:#1D1D1D;
+            color: aliceblue;
+        }
+    </style>
+    <script>
+        async function cal() {
+            const p = document.getElementById("principal").value
+            const i = document.getElementById("intrest").value
+            const d = document.getElementById("duration").value
+            const result = document.getElementById("result");
+
+            const response = await fetch("http://localhost:3000/intrest?p="+ p +"&i=" + i +"&d="+ d)
+            const res = await response.json(); 
+            result.innerHTML = `
+                        <ul>
+                            <p>Total Amount: ${res.t_amount}</p>
+                            <p>Total Interest: ${res.t_inrest}</p>
+                        </ul>
+                    `;
+        }
+
+               
+
+    </script>
+<div style="display: grid; justify-content: center; ">
+    <h1>INVESTMENT CALCULATOR</h1>
+    <h>enter the total principal amount:</h> 
+    <input type="text" placeholder="principal amount" id="principal"></input><br>
+    <h>enter the rate of return of intrest:</h>
+    <input type="text" placeholder="intrest amount" id="intrest"></input><br>
+    <h>enter the total number of duration of investment:</h>
+    <input type="text" placeholder="duration in yr" id="duration"></input><br>
+
+    <button onclick="cal()" style="border-radius: 15px;border: 0px; width: 100px; justify-content: center; text-align: center ; outline: none;">calculate</button><br><br>
+    <div id="result"  style="background-color: rgba(250, 235, 215, 0.24); color: #e6e3e3; border-radius: 25px;">
+    </div>
+</div>
+</body>
+</html>
